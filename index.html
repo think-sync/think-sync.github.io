@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascending Order Card Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="home-screen" class="screen">
+        <h1>Ascending Order Card Game</h1>
+        <input type="text" id="player-name" placeholder="Enter your name">
+        <button id="host-game">Host New Game</button>
+        <div id="join-game">
+            <input type="text" id="game-code" placeholder="Enter game code">
+            <button id="join-game-btn">Join Game</button>
+        </div>
+    </div>
+
+    <div id="loading-screen" class="screen hidden">
+        <h2>Waiting for players...</h2>
+        <div id="game-code-display" class="hidden">
+            <h3>Game Code: <span id="displayed-game-code"></span></h3>
+            <p>Share this code with other players to join the game.</p>
+        </div>
+        <h3>Connected Players:</h3>
+        <ul id="player-list"></ul>
+        <button id="start-game" class="hidden">Start Game</button>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <div id="game-info">
+            <h2>Round: <span id="current-round"></span></h2>
+        </div>
+        <div id="card-pile">
+            <h3>Last Played Card</h3>
+            <div id="last-played-card"></div>
+        </div>
+        <div id="player-hand-container">
+            <h3>Your Hand</h3>
+            <div id="player-hand"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
