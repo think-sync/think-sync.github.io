@@ -189,6 +189,9 @@ function listenForGameUpdates() {
     database.ref(`games/${gameId}`).on('value', (snapshot) => {
         const gameData = snapshot.val();
         if (gameData) {
+            if (currentRound < gameData.currentRound) {
+                winRoundAnims();
+            }
             currentRound = gameData.currentRound;
             updateRoundDisplay();
             renderPlayerHand();
@@ -198,6 +201,8 @@ function listenForGameUpdates() {
             }
             if (gameData.roundLost) {
                 alert("Round lost! A card higher than someone's hand was played. Restarting the round.");
+                lastPlayedCard = null;
+                updateLastPlayedCard();
                 if (isHost) {
                     restartRound();
                 }
@@ -205,6 +210,15 @@ function listenForGameUpdates() {
             }
         }
     });
+}
+
+function winRoundAnims() {
+    lastPlayedCard = null;
+    updateLastPlayedCard();
+    confetti.start()
+    setTimeout(() => {
+        confetti.stop()
+    }, 1000);
 }
 
 function updateRoundDisplay() {
@@ -340,6 +354,7 @@ function checkRoundCompletion(playedCard) {
                 // })
                 .catch(error => console.error("Error marking round as lost:", error));
         } else if (allCardsPlayed) {
+            winRoundAnims();
             advanceToNextRound();
         }
     }).catch(error => {
